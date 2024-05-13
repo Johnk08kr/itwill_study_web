@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>HTML Table</title>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+	</head>
+	<body>
+       <a href="index.html">인덱스 페이지</a>
+	   <h1>테이블</h1>
+       <table>
+            <caption>프론트엔드 과목</caption> <!-- 테이블 제목 -->
+            <thead> <!-- 테이블 헤더: 컬럼 -->
+                <tr> <!-- table row -->
+                    <th>번호</th> <!-- table cell header (bold) -->
+                    <th>HTML</th>
+                    <th>CSS</th>
+                    <th>JavaScript</th>
+                </tr>
+            </thead>
+            <tbody> <!-- 테이블 본체 -->
+                <tr>
+                    <td>1</td> <!-- table cell data -->
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td>  
+                </tr>
+                <tr>
+                    <td>2</td> <!-- table cell data -->
+                    <td>20</td>
+                    <td>20</td>
+                    <td>20</td>  
+                </tr>
+                <tr>
+                    <td>3</td> <!-- table cell data -->
+                    <td>30</td>
+                    <td>30</td>
+                    <td>30</td>  
+                </tr>                                
+            </tbody>
+            <tfoot> <!--  -->
+                <tr> <!-- table row -->
+                    <th>합계</th> <!-- table cell header (bold) -->
+                    <td>60</td>
+                    <td>60</td>
+                    <td>60</td>
+                </tr>            
+            </tfoot>
+       </table>
+      
+       <hr />
+       <h1>column span</h1>
+       <table>
+            <thead>
+                <tr>
+                    <th>이름</th>
+                    <th colspan="2">전화번호</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Johnk</td>
+                    <td>010-5037-9881</td>
+                    <td>02-6414-9881</td>
+                </tr>
+                <tr>
+                    <td>홍길동</td>
+                    <td>010-1234-9881</td>
+                    <td>02-6414-1234</td>
+                </tr>                                               
+            </tbody>
+       </table>
+      
+       <hr />
+       <h1>row span</h1>
+       <table>
+            <tbody>
+                <tr>
+                    <th>이름</th>
+                    <td>JohnK</td>
+                    <td>홍길동</td>
+                </tr>
+                <tr>
+                    <th rowspan="2">전화번호</th>
+                    <td>010-5037-9881</td>
+                    <td>010-1234-9881</td>
+                </tr>
+                <tr>
+                    <td>02-6414-9881</td>
+                    <td>02-6414-1234</td>
+                </tr>                                                                      
+            </tbody>
+       </table>       
+	</body>
+</html>
