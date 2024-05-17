@@ -42,4 +42,38 @@ console.log(result);
 // 원본 배열의 원소 순서를 오츰차순으로 변경. 원본 배열이 바뀜
 // sort(callback): 배열 원소의 크기 비교해서 사용하는 콜백을 argument로 전달.
 arr2.sort((x, y) => x - y);
-console.log(arr)
+console.log(arr2)
+
+// forEach, filter, map, reduce:
+const numbers = [1, 2, 3, 4, 5, 6];
+console.log(numbers)
+
+// 배열 numbers의 원소들 중에서 홀수들로만 이루어진 새로운 배열
+const odds = []; // let odds = [];
+for (let x of numbers) {
+    if (x % 2) {
+        odds.push(x); // odds = odds.concat(x);
+    }
+}
+console.log(odds);
+
+result = numbers.filter(function(x) {
+    return x % 2;
+});
+result = numbers.filter((x) => x % 2);
+console.log(result);
+
+// 배열 numbers의 원소들의 제곱을 원소로 갖는 새로운 배열
+const squares = [];
+for(let x of numbers){
+    squares.push(x * x);
+}
+console.log(squares);
+
+result = numbers.map((x) => x * x);
+console.log(result);
+
+numbers.forEach((x) => console.log(x));
+
+
+
