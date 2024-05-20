@@ -32,7 +32,7 @@ console.log(arr2);
 // 배열의 원소들을 문자열로 변환해서 크기 비용
 // 오름차순 정렬된 "새로운" 배열을 리턴.
 // 원본 배열은 변경되지 않음
-// toSorted(callback): 배열 원소들의 크비 비교를 할 때 사용할 콜백을 argument로 전달.
+// toSorted(callback): 배열 원소들의 크기 비교를 할 때 사용할 콜백을 argument로 전달.
 result = arr2.toSorted((x, y) => x - y); // 원본 배열을 오름차순 정렬한 "새로운" 배열을 리턴.
 console.log(arr2); //-> toSorted() 메소드는 원본 배열을 변경하지 않음!
 console.log(result);
@@ -75,5 +75,33 @@ console.log(result);
 
 numbers.forEach((x) => console.log(x));
 
+// 배열 numbers의 모든 원소들의 합계
+let sum = 0;
+for (let value of numbers){
+    sum += value;
+}
+console.log(sum);
 
+// reduce(callback, initialValue)
+sum = numbers.reduce((acc, cur) => acc + cur, 0);
+console.log(`sum = ${sum}`);
 
+// numbers의 모든 원소들의 곱: 1 x 2 x ... x 5 x 6
+result = 1;
+for (let value of numbers){
+    result = result * value; 
+}
+console.log(`result = ${result}`);
+
+result = numbers.reduce((acc, cur) => acc * cur, 1);
+console.log(`result = ${result}`);
+
+// numbers의 원소들 중에서 짝수들의 합:
+result = numbers.filter((x) => x % 2 === 0).reduce((acc, cur) => acc + cur, 0);
+console.log(`짝수 합 = ${result}`);
+// numbers의 원소들의 제곱의 합:
+result = numbers.map((x) => x * x).reduce((acc, cur) => acc + cur, 0);
+console.log(`제곱 합 = ${result}`);
+// numbers의 원소들 중에서 짝수들의 제곱의 합
+result = numbers.filter((x) => x % 2 === 0).map((x) => x * x).reduce((acc, cur) => acc + cur, 0);
+console.log(`짝수 제곱 합 = ${result}`);
