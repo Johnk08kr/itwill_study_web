@@ -18,6 +18,10 @@
             <li><a href="ex2">두번째 Servlet</a></li>
             <li><a href="ex3">forward</a></li>
             <li><a href="ex4">redirect</a></li>
+            <li><a href="intro.jsp">JSP 소개</a></li>
+            <li><a href="main.jsp">include 지시문</a></li>
+            <li><a href="scriptlet.jsp">스크립트릿(scriptlet)</a></li>
+            <li><a href="form.jsp">form 양식</a></li>
         </ul>
     </main>
 </body>
