@@ -9,7 +9,7 @@ public class Contact {
 	public Contact() {
 
 	}
-
+	
 	public Contact(int id, String name, String phone, String email) {
 		this.id = id;
 		this.name = name;

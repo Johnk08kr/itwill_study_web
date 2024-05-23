@@ -22,6 +22,9 @@
             <li><a href="main.jsp">include 지시문</a></li>
             <li><a href="scriptlet.jsp">스크립트릿(scriptlet)</a></li>
             <li><a href="form.jsp">form 양식</a></li>
+            <li><a href="actionTag.jsp">JSP Action Tag</a></li>
+            <li><a href="el.jsp">EL(Expression Language)</a></li>
+            <li><a href="jstl.jsp">JSTL</a></li>
         </ul>
     </main>
 </body>
