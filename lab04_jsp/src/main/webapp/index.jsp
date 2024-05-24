@@ -25,6 +25,7 @@
             <li><a href="actionTag.jsp">JSP Action Tag</a></li>
             <li><a href="el.jsp">EL(Expression Language)</a></li>
             <li><a href="jstl.jsp">JSTL</a></li>
+            <li><a href="mvc">MVC</a></li>
         </ul>
     </main>
 </body>
