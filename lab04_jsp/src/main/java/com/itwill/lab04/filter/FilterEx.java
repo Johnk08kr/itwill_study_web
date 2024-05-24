@@ -11,6 +11,11 @@ import jakarta.servlet.ServletResponse;
 /**
  * Servlet Filter implementation class FilterEx
  */
+// 필터 요청 주소 매핑 설정:
+// (1) web.xml(deployment descriptor) 파일에서 <filter>, <filter-mapping> 태그에서 설정하거나
+// (2) @WebFilter annotation 
+// 중복설정 NO
+// filter chain 있을때, 필터 실행되는 순서는 web.xml 설정 순서대로.
 public class FilterEx extends HttpFilter {
        
     /**
