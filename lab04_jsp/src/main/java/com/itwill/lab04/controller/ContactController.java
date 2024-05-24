@@ -2,6 +2,7 @@ package com.itwill.lab04.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -53,6 +54,7 @@ public class ContactController extends HttpServlet {
 		response.sendRedirect("/lab04");
 		
 		// PRG(Post request - Redirect - Get request) 패턴
+		
 	}
 
 }
