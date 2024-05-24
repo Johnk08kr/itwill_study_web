@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
   <display-name>lab04_jsp</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
@@ -9,6 +9,25 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  <filter>
+    <display-name>filterEx</display-name>
+    <filter-name>filterEx</filter-name>
+    <filter-class>com.itwill.lab04.filter.FilterEx</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>filterEx</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>secondFilterEx</display-name>
+    <filter-name>secondFilterEx</filter-name>
+    <filter-class>com.itwill.lab04.filter.SecondFilterEx</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>secondFilterEx</filter-name>
+    <url-pattern>/ex1</url-pattern>
+    <url-pattern>/ex2</url-pattern>
+  </filter-mapping>
   <servlet>
     <description></description>
     <display-name>firstServlet</display-name>
