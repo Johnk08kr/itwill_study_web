@@ -13,13 +13,42 @@ import com.itwill.lab05.repository.PostDao;
 // Controller(Web) 계층에게 비즈니스 로직 결과를 리턴.
 public enum PostService {
 	INSTANCE;
-	
+
 	private static final Logger log = LoggerFactory.getLogger(PostService.class);
-	
+
 	// Persistence(Business) 계층의 기능(메소드)들을 사용하기 위해서.
 	private final PostDao postDao = PostDao.INSTANCE;
-	
-	public List<Post> read(){
-		return postDao.select();
+
+	public List<Post> read() {
+		log.debug("read()");
+		List<Post> list = postDao.select();
+		log.debug("list size = {}", list.size());
+		return list;
+	}
+
+	public Post read(int id) {
+		log.debug("read(id={})", id);
+
+		// 영속성 계층의 메소드를 호출해서 DB 테이블에서 id로 검색하는 SQL을 실행
+		Post post = postDao.select(id);
+		return post;
+	}
+
+	public int create(Post post) {
+		log.debug("create(post={})", post);
+
+		// Repository 계층의 메소드를 사용해서 DB 테이블에 행을 삽입(insert)
+		int result = postDao.insert(post);
+		log.debug("insert result={}", result);
+		return result;
+	}
+
+	public int delete(int id) {
+		log.debug("delete(post={})", id);
+		
+		int result = postDao.delete(id);
+		log.debug("delete result={}", result);
+		return result;
+
 	}
 }

@@ -22,7 +22,7 @@
         <div class="card-header">
             <h2 style="text-align: center">POSTS</h2>
         </div>
-        <div class ="card-body">
+        <div class="card-body">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -36,7 +36,12 @@
                     <c:forEach items="${posts}" var="post">
                         <tr>
                             <td>${ post.id }</td>
-                            <td>${ post.title }</td>
+                            <td>
+                                <c:url var="postDetailsPage" value="/post/details">
+                                    <c:param name="id" value="${post.id}"></c:param>
+                                </c:url>                             
+                                <a href="${postDetailsPage}">${ post.title }</a>
+                            </td>
                             <td>${ post.author }</td>
                             <td>${ post.createTime }</td>
                         </tr>
