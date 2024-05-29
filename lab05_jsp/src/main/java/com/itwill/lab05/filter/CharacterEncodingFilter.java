@@ -13,7 +13,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpFilter;
 
 public class CharacterEncodingFilter extends HttpFilter {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; 
 	private static Logger log = LoggerFactory.getLogger(CharacterEncodingFilter.class);
 	private String encoding;
 
