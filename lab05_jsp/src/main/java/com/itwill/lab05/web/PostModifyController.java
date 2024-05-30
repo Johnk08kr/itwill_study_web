@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class PostModifyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger log = LoggerFactory.getLogger(PostModifyController.class);
-	private static PostService postService = PostService.INSTANCE;
+	private final PostService postService = PostService.INSTANCE;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

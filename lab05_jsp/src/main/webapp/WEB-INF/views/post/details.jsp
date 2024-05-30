@@ -60,7 +60,6 @@
                             <textarea id="content" class="form-control"
                                 rows="5" readonly>${post.content}</textarea>
                         </div>
-
                     </form>
                 </div>
                 <div class="card-footer">

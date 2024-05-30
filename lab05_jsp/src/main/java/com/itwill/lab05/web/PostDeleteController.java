@@ -17,26 +17,24 @@ import jakarta.servlet.http.HttpServletResponse;
 public class PostDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory.getLogger(PostDeleteController.class);
-	private static PostService postService = PostService.INSTANCE;
+	private final PostService postService = PostService.INSTANCE;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		log.debug("doPost()");
-
+		log.debug("doGet()");
+		
 		int id = Integer.parseInt(req.getParameter("id"));
 		log.debug("id={}", id);
 		
 		int result = postService.delete(id);
 		log.debug("{}행 삭제", result);
 		
+		
+		// 목록 페이지로 이동(redirect)
+		// 최초 요청주소와 최종 주소가 다를때 
 		String url = req.getContextPath() + "/post/list";
-		log.debug("redirect: " + url);
+		log.debug("redirect: {}", url);
 		resp.sendRedirect(url);
-	}
 
+	}
 }
