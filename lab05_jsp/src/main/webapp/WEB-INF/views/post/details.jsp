@@ -63,10 +63,10 @@
                     </form>
                 </div>
                 <div class="card-footer">
-                    <c:url var="postModifiyPage" value="/post/modify">
+                    <c:url var="postModifyPage" value="/post/modify">
                         <c:param name="id" value="${post.id}" />
                     </c:url>
-                    <a class="btn btn-outline-primary" href="${postModifiyPage}">수정하기</a>
+                    <a class="btn btn-outline-primary" href="${postModifyPage}">수정하기</a>
 
                     <c:url var="postDelete" value="/post/delete">
                         <c:param name="id" value="${post.id}"></c:param>
