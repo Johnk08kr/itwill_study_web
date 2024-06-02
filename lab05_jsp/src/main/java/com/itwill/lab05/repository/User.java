@@ -3,7 +3,7 @@ package com.itwill.lab05.repository;
 public class User {
 	// field
 	private Integer id;
-	private String userId;
+	private String userid;
 	private String password;
 	private String email;
 	private Integer point;
@@ -12,9 +12,9 @@ public class User {
 		
 	}
 
-	public User(Integer id, String userId, String password, String email, Integer point) {
+	public User(Integer id, String userid, String password, String email, Integer point) {
 		this.id = id;
-		this.userId = userId;
+		this.userid = userid;
 		this.password = password;
 		this.email = email;
 		this.point = point;
@@ -29,11 +29,11 @@ public class User {
 	}
 
 	public String getUserId() {
-		return userId;
+		return userid;
 	}
 
 	public void setUserId(String userId) {
-		this.userId = userId;
+		this.userid = userId;
 	}
 
 	public String getPassword() {
@@ -62,7 +62,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userId=" + userId + ", password=" + password + ", email=" + email + ", point="
+		return "User [id=" + id + ", userId=" + userid + ", password=" + password + ", email=" + email + ", point="
 				+ point + "]";
 	}
 	
@@ -72,7 +72,7 @@ public class User {
 	
 	public static class UserBuilder {
 		private Integer id;
-		private String userId;
+		private String userid;
 		private String password;
 		private String email;
 		private Integer point;
@@ -86,8 +86,8 @@ public class User {
 			return this;
 		}
 		
-		public UserBuilder userId(String userId) {
-			this.userId = userId;
+		public UserBuilder userId(String userid) {
+			this.userid = userid;
 			return this;
 		}
 		
@@ -107,7 +107,7 @@ public class User {
 		}
 		
 		public User build() {
-			return new User(id, userId, password, email, point);
+			return new User(id, userid, password, email, point);
 		}
 	}
 }

@@ -14,21 +14,21 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public enum UserDao {
 	INSTANCE;
-	
+
 	private static final Logger log = LoggerFactory.getLogger(UserDao.class);
 	private final HikariDataSource ds = DataSourceUtil.getInstance().getDataSource();
-	
+
 	// insert() 메소드에서 실행할 SQL:
 	private static final String SQL_INSERT = "insert into users(userId, password, email) values (?, ?, ?)";
-	
+
 	public int insert(User user) {
 		log.debug("insert()");
 		log.debug(SQL_INSERT);
-		
+
 		int result = 0;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		
+
 		try {
 			conn = ds.getConnection();
 			stmt = conn.prepareStatement(SQL_INSERT);
@@ -40,10 +40,57 @@ public enum UserDao {
 			e.printStackTrace();
 		} finally {
 			closeResources(conn, stmt);
-		}	
-		 return result;
+		}
+		return result;
 	}
-	
+
+	private static final String SQL_SIGN_IN = "select * from users where userid = ? and password = ?";
+
+	/**
+	 * 로그인할 때 필요한 메서드.
+	 * 
+	 * @param user 로그인을 시도한 userid, password를 저장한 객체.
+	 * @return 데이터베이스의 users 테이블에서 userid와 password가 일치하는 레코드가 있으면 null이 아닌 User 타입
+	 *         객체를 리턴. userid 또는 password가 일치하지 않으면 null을 리턴.
+	 */
+
+	public User selectByUseridAndPassword(User user) {
+		log.debug("selectByUseridAndPassword({}", user);
+		log.debug(SQL_SIGN_IN);
+
+		User result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = ds.getConnection();
+			stmt = conn.prepareStatement(SQL_SIGN_IN);
+			stmt.setString(1, user.getUserId());
+			stmt.setString(2, user.getPassword());
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				result = fromResultSetToUser(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	private User fromResultSetToUser(ResultSet rs) throws SQLException {
+		int id = rs.getInt("id");
+		String userid = rs.getString("userid");
+		String password = rs.getString("password");
+		String email = rs.getString("email");
+		int point = rs.getInt("points");
+		
+		return User.builder().id(id).userId(userid).password(password).email(email).point(point).build();
+		
+	}
+
 	private void closeResources(Connection conn, Statement stmt, ResultSet rs) {
 		try {
 			if (rs != null)
@@ -62,18 +109,4 @@ public enum UserDao {
 		closeResources(conn, stmt, null);
 	}
 
-//	private Post fromResultSetToPost(ResultSet rs) throws SQLException {
-//		int id = rs.getInt("id");
-//		String title = rs.getString("title");
-//		String content = rs.getString("content");
-//		String author = rs.getString("author");
-//		LocalDateTime createdTime = rs.getTimestamp("created_time").toLocalDateTime();
-//		LocalDateTime modifiedTime = rs.getTimestamp("modified_time").toLocalDateTime();
-//
-//		Post post = Post.builder().id(id).title(title).author(author).content(content).createTime(createdTime)
-//				.modifiedTime(modifiedTime).build();
-//
-//		return post;
-//
-//	}	
 }
