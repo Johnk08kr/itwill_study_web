@@ -7,9 +7,9 @@ public class User {
 	private String password;
 	private String email;
 	private Integer point;
-	
+
 	public User() {
-		
+
 	}
 
 	public User(Integer id, String userid, String password, String email, Integer point) {
@@ -32,8 +32,8 @@ public class User {
 		return userid;
 	}
 
-	public void setUserId(String userId) {
-		this.userid = userId;
+	public void setUserId(String userid) {
+		this.userid = userid;
 	}
 
 	public String getPassword() {
@@ -65,47 +65,47 @@ public class User {
 		return "User [id=" + id + ", userId=" + userid + ", password=" + password + ", email=" + email + ", point="
 				+ point + "]";
 	}
-	
+
 	public static UserBuilder builder() {
 		return new UserBuilder();
 	}
-	
+
 	public static class UserBuilder {
 		private Integer id;
 		private String userid;
 		private String password;
 		private String email;
 		private Integer point;
-		
+
 		public UserBuilder() {
-			
+
 		}
-		
+
 		public UserBuilder id(Integer id) {
 			this.id = id;
 			return this;
 		}
-		
+
 		public UserBuilder userId(String userid) {
 			this.userid = userid;
 			return this;
 		}
-		
+
 		public UserBuilder password(String password) {
 			this.password = password;
 			return this;
 		}
-		
+
 		public UserBuilder email(String email) {
 			this.email = email;
 			return this;
 		}
-		
+
 		public UserBuilder point(Integer point) {
 			this.point = point;
 			return this;
 		}
-		
+
 		public User build() {
 			return new User(id, userid, password, email, point);
 		}

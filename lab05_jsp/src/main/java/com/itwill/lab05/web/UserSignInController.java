@@ -1,6 +1,7 @@
 package com.itwill.lab05.web;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,17 +36,27 @@ public class UserSignInController extends HttpServlet {
 		String password = req.getParameter("password");
 
 		User user = userService.signIn(userid, password);
+
+		// 로그인 성공하면 target 페이지, 실패하면 다시 로그인 페이지
+		String target = req.getParameter("target");
+		log.debug("target = {}", target);
+
 		if (user != null) {
 			// 세션에 로그인 정보를 저장.
 			HttpSession session = req.getSession();
-			session.setAttribute("signedInUser", user.getUserId());
+			session.setAttribute("signedInUser", userid);
 
 			// FIXME: 타겟 목적지(URL)로 이동
-			String target = req.getContextPath() + "/"; // home
-			resp.sendRedirect(target);
+			if (target == null || target.equals("")) {
+				String url = req.getContextPath() + "/"; // home
+				resp.sendRedirect(url);
+			} else {
+				resp.sendRedirect(target);
+			}
+
 		} else {
 			// 다시 로그인 페이지로 이동
-			String url = req.getContextPath() + "/user/signin";
+			String url = req.getContextPath() + "/user/signin?result=f&target=" + URLEncoder.encode(target, "UTF-8"); // FIXME
 			resp.sendRedirect(url);
 		}
 
