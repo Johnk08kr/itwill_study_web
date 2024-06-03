@@ -82,7 +82,6 @@ public class AuthenticationFilter extends HttpFilter {
 			// 요청을 계속 처리(-> 요청을 처리하는 서블릿으로 전달)
 			chain.doFilter(request, response);
 		}
-
 	}
 
 	/**
