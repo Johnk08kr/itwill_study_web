@@ -35,6 +35,5 @@ public class PostDeleteController extends HttpServlet {
 		String url = req.getContextPath() + "/post/list";
 		log.debug("redirect: {}", url);
 		resp.sendRedirect(url);
-
 	}
 }

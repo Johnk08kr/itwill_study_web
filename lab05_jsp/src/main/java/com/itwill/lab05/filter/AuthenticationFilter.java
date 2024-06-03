@@ -3,6 +3,10 @@ package com.itwill.lab05.filter;
 import jakarta.servlet.Filter;
 import jakarta.servlet.http.HttpFilter;
 import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
@@ -13,7 +17,9 @@ import jakarta.servlet.ServletResponse;
  * Servlet Filter implementation class AuthenticationFilter
  */
 public class AuthenticationFilter extends HttpFilter {
-       
+	private static final long serialVersionUID = 1L;
+	private static Logger log = LoggerFactory.getLogger(AuthenticationFilter.class);
+
 	/**
 	 * @see Filter#destroy()
 	 */

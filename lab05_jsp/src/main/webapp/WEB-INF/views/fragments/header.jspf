@@ -26,6 +26,7 @@
                     <c:url var="newPostPage" value="/post/create" />
                     <a class="nav-link" href="${newPostPage}">New Post</a>
                 </li>
+                
                 <%-- not empty = not null and length > 0 --%>
                 <%-- empty = null or length = 0 --%>
                 <c:if test="${not empty signedInUser}">
@@ -37,6 +38,7 @@
                 		</a>
                 	</li>
                 </c:if>
+
                 <c:if test="${empty signedInUser}">
 	                <%-- 세션에 로그인 정보가 없는 경우 --%>
                 	<li class="nav-item">

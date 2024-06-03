@@ -34,7 +34,6 @@ public class PostDetailsController extends HttpServlet {
 		req.setAttribute("post", post);
 		req.getRequestDispatcher("/WEB-INF/views/post/details.jsp").forward(req, resp);
 		
-		
 	}
 	
 	@Override
