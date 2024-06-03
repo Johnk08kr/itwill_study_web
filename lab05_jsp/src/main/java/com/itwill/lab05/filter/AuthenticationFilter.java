@@ -2,7 +2,12 @@ package com.itwill.lab05.filter;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.http.HttpFilter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,9 +41,48 @@ public class AuthenticationFilter extends HttpFilter {
 		// (1) 로그인되어 있으면, 컨트롤러로 요청을 전달해서 계속 요청을 처리.
 		// (2) 로그인되어 있지 않으면, 컨트롤러로 요청을 전달하지 않고 로그인 페이지로 이동.
 		// -> 로그인 컨트롤러(UserSignInController)에서 로그인 성공 후 최초 요청 주소로 이동.
+		
+		HttpServletRequest req = ((HttpServletRequest) request);
+		
+		// 전체 경로
+		String reqUrl = req.getRequestURL().toString();
+		log.debug("request URL = {}", reqUrl);
+		
+		// Context root
+		String contextPath = req.getContextPath();
+		log.debug("context path(root) = {}", contextPath);
+		
+		// Context root 부터 
+		String reqUri = req.getRequestURI();
+		log.debug("request URI = {}", reqUri);
+		
+		// URL의 쿼리 문자열 
+		String qs = req.getQueryString();
+		log.debug("query string = {}", qs);
+		
+		String target = ""; // 로그인 성공했을 때 redirect 요청 주소
+		if (qs == null) {
+			target = URLEncoder.encode(reqUrl, "UTF-8");
+		} else {
+			target = URLEncoder.encode(reqUrl + "?" + qs, "UTF-8"); 
+		}
+		log.debug("target = {}", target);
+		
+		// 세션에 로그인 정보(signedInUser)가 있는 지를 체크:
+		HttpSession session = req.getSession();
+		Object signedInUser = session.getAttribute("signedInUser");
+		
+		if (signedInUser == null) {
+			log.debug("로그아웃 상태 --> 로그인 페이지로 이동 --> 로그인 성공 후 target으로 이동");
+			String url = req.getContextPath() + "/user/signin?target=" + target;
+			((HttpServletResponse) response).sendRedirect(url);
+		} else {
+			log.debug("로그인 상태: {}", signedInUser);
+			
+			// 요청을 계속 처리(-> 요청을 처리하는 서블릿으로 전달)
+			chain.doFilter(request, response);
+		}
 
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
 	}
 
 	/**
