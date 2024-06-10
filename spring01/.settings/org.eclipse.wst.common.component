@@ -2,7 +2,7 @@
                 
     
     
-    <wb-module deploy-name="spring01-0.0.1-SNAPSHOT">
+    <wb-module deploy-name="spring02-0.0.1-SNAPSHOT">
                                 
         
         
@@ -22,15 +22,11 @@
                         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-sources/annotations"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-test-sources/test-annotations"/>
                                 
         
         
         <property name="java-output-path" value="/spring01/build/classes"/>
-                                
-        
-        
-        <property name="context-root" value="spring01"/>
+        <property name="context-root" value="spring02"/>
                             
     
     
