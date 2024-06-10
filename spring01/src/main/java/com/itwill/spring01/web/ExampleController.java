@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwill.spring01.dto.UserDto;
 
@@ -95,5 +96,27 @@ public class ExampleController {
 		return "redirect:/test";
 		// 컨트롤러 메소드가 'redirect:'으로 시작하는 문자열을 리턴 -> 리다이렉트 방식의 이동
 		// redirect: 요청 주소 바뀜.
+	}
+	
+	@GetMapping("/rest1")
+	@ResponseBody
+	//-> 컨트롤러 메소드가 리턴하는 값이 뷰를 찾기 위한 문자열이 아니라,
+	// 	 클라이언트로 직접 응답되는 데이터. 
+	//   응답 패킷(response packet)의 몸통(body)에 포함되는 데이터.
+	public String rest1() {
+		log.debug("rest1()");
+		
+		return "hi";
+	}
+	
+	@GetMapping("/rest2")
+	@ResponseBody
+	public UserDto rest2() {
+		log.debug("rest()");
+		UserDto user = UserDto.builder().username("Johnk").age(32).build();
+		return user;
+		//-> REST 컨트롤러가 리턴한 자바 객체를 jackson-databind 라이브러리에서 
+		// JSON(JavaScript Object Notation) 형식의 문자열로 변환하고,
+		// 클라이언트로 응답을 보냄.
 	}
 }

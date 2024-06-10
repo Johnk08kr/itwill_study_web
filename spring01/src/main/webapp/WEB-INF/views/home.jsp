@@ -19,8 +19,8 @@
             <h2>${now}</h2>
             <!-- <img alt="default" src="/spring01/images/player_default.png"/> -->
             <!-- <img alt="default" src="./images/player_default.png" /> -->
-            <c:url var="default" value="/images/player_default.png" />
-            <img alt="default" src="${default}" />
+            <c:url var="img" value="/images/player_default.png" />
+            <img alt="default" src="${img}" />
         </header>
         <main>
             <h1>Contents</h1>
@@ -42,6 +42,22 @@
                         <c:url var="redirectPage" value="/testRedirect" />
                         <a href="${redirectPage}">리다이렉트</a>
                     </li>
+                    <li>
+                        <c:url var="rest1" value="/rest1" />
+                        <a href="${rest1}">REST1</a>
+                    </li>
+                    <li>
+                        <c:url var="rest2" value="/rest2" />
+                        <a href="${rest2}">REST2</a>
+                    </li>
+                    <li>
+                        <c:url var="rest3" value="/rest3" />
+                        <a href="${rest3}">REST Controller3</a>
+                    </li>
+                    <li>
+                        <c:url var="rest4" value="/rest4" />
+                        <a href="${rest4}">REST Controller4</a>
+                    </li>                                                
                 </ul>
             </nav>
         </main>
