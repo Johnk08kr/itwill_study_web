@@ -3,10 +3,10 @@
     xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.itwill</groupId>
-    <artifactId>spring01</artifactId>
+    <artifactId>spring02</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Spring Legacy 01</name>
+    <name>Spring Legacy 02</name>
     <description>Spring Legacy Project</description>
 
     <!-- XML 파일에서 사용할 속성(변수) 선언 -->
