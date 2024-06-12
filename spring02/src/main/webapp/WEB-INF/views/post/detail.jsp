@@ -60,6 +60,14 @@
                             <textarea id="content" class="form-control"
                                 rows="5" readonly>${post.content}</textarea>
                         </div>
+                        <div class="card-footer">
+                            <c:url var="postUpdatePage"
+                                value="/post/update">
+                                <c:param name="id" value="${post.id}" />
+                            </c:url>
+                            <a class="btn btn-outline-primary"
+                                href="${postUpdatePage}">수정하기</a>
+                        </div>
                     </form>
                 </div>
                 <%-- 글 작성자 아이디와 로그인 사용자 아이디가 같으면 수정하기 버튼을 보여줌. --%>

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.itwill.spring02.dto.PostCreateDto;
 import com.itwill.spring02.dto.PostListDto;
+import com.itwill.spring02.dto.PostUpdateDto;
 import com.itwill.spring02.repository.Post;
 import com.itwill.spring02.service.PostService;
 
@@ -33,28 +35,45 @@ public class PostController {
 		model.addAttribute("posts", list);
 	}
 
-	@GetMapping("/detail")
+	@GetMapping({ "/detail", "/update" })
+	// 2개의 요청주소를 처리
 	public void detail(@RequestParam(name = "id") int id, Model model) {
 		log.debug("detail()");
 
 		Post post = postService.readById(id);
 		model.addAttribute("post", post);
 	}
-	
+
 	@GetMapping("/create")
 	public void create() {
+		log.debug("create() GET");
+	}
 
+	@PostMapping("/create")
+	public String create(PostCreateDto post) {
+		log.debug("POST: create(dto={}", post);
+
+		postService.createPost(post);
+
+		return "redirect:/post/list";
+	}
+
+	@GetMapping("/delete")
+	public String delete(@RequestParam(name = "id") int id) {
+		log.debug("delete(id={}", id);
+		postService.deletePost(id);
+		return "redirect:/post/list";
 	}
 	
-	@PostMapping("/create")
-	public String createPost(@RequestParam(name = "title") String title, @RequestParam(name = "content") String content,
-			@RequestParam(name = "author") String author) {
-		log.debug("createPost()");
-		
-		Post post = Post.builder().title(title).content(content).author(author).build();
-		
-		postService.createPost(post);
-		
-		return "redirect:/post/list" ;
+	@PostMapping("/update")
+	public String update(PostUpdateDto post) {
+		log.debug("POST: update(dto={})", post);
+		postService.updatePost(post);
+		return "redirect:/post/detail?id=" + post.getId();
 	}
+	
+//	@PostMapping("/search")
+//	public String search(@RequestParam(name="category") String category, @RequestParam(name="searchText") String searchText) {
+//		
+//	}
 }

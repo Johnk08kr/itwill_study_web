@@ -60,7 +60,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
         crossorigin="anonymous"></script>
     
-    <c:url var="post_modify_js" value="/js/post_modify.js" />
-    <script src="${post_modify_js}"></script>
+    <!--<c:url var="post_modify_js" value="/js/post_modify.js" />
+    <script src="${post_modify_js}"></script> !-->
 </body>
 </html>

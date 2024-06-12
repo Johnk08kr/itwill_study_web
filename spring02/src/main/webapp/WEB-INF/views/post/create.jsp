@@ -24,8 +24,8 @@
                     <h2>새 글 작성</h2>
                 </div>
                 <div class="card-body">
-                    <c:url var="newPostPage" value="/post/create" />
-                    <form method="post" action="${newPostPage}">
+                    <!-- form에서 action값을 설정하지 않으면 현재 요청 주소로 다시 요청을 보냄. -->
+                    <form method="post">
                         <div class="mt-2">
                             <input class="form-control" type="text" name="title" placeholder="제목을 입력해라" required autofocus />
                         </div>

@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.itwill.spring02.dto.PostCreateDto;
 import com.itwill.spring02.dto.PostListDto;
+import com.itwill.spring02.dto.PostUpdateDto;
 import com.itwill.spring02.repository.Post;
 import com.itwill.spring02.repository.PostDao;
 
@@ -39,7 +41,7 @@ public class PostService {
 				.toList();
 	}
 	
-	public Post readById(int id) {
+	public Post readById(Integer id) {
 		log.debug("readById()");
 		
 		Post post = postDao.selectById(id);
@@ -47,9 +49,23 @@ public class PostService {
 		return post;
 	}
 	
-	public void createPost(Post post) {
+	public void createPost(PostCreateDto post) {
 		log.debug("createPost()");
 		
-		postDao.insertPost(post);
+		postDao.insertPost(post.toEntity());
+	}
+	
+	public void updatePost(PostUpdateDto post) {
+		log.debug("updatePost()");
+		
+		postDao.updatePost(post.toEntity());
+	}
+	
+	public int deletePost(int id) {
+		log.debug("deletePost()");
+		
+		int result = postDao.deletePost(id);
+		
+		return result;
 	}
 }
