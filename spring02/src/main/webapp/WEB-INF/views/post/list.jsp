@@ -32,7 +32,7 @@
                             </select>
                         </div>
                         <div class="col-7">
-                            <input class="form-control" type="text" name="searchText" placeholder="검색어 입력해" required />
+                            <input class="form-control" type="text" name="keyword" placeholder="검색어 입력해" required />
                         </div>
                         <div class="col-2">
                             <input class="form-control btn btn-primary" type="submit" value="검색" />

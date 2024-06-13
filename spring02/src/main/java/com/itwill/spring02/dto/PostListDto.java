@@ -13,23 +13,19 @@ import lombok.NoArgsConstructor;
 // view<->controller, controller<->service 데이터 주고 받을 때 사용하는 객체
 
 @Data // .....+@RequiredArgsConstructor: 기본생성자 아님(final)
-@NoArgsConstructor 
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class PostListDto {
-	
+
 	private Integer id;
 	private String title;
 	private String author;
 	private LocalDateTime modifiedTime;
-	
+
 	public static PostListDto fromEntity(Post post) {
-		return PostListDto.builder()
-				.id(post.getId())
-				.title(post.getTitle())
-				.author(post.getAuthor())
-				.modifiedTime(post.getModifiedTime())
-				.build();
+		return PostListDto.builder().id(post.getId()).title(post.getTitle()).author(post.getAuthor())
+				.modifiedTime(post.getModifiedTime()).build();
 	}
-	
+
 }

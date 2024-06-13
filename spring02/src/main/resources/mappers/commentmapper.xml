@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.spring02.repository.CommentDao">
+    <select id="selectByPostId" resultType="Comment">
+        select * from comments where post_id = #{postId} order by id desc
+    </select>
+    
+    <insert id="insert">
+        insert into comments (post_id, username, ctext) values (#{postId}, #{userName}, #{cText})
+    </insert>
+
+
+
+
+
+
+
+
+</mapper>

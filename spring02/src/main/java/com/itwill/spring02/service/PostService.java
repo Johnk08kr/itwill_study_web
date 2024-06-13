@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwill.spring02.dto.PostCreateDto;
 import com.itwill.spring02.dto.PostListDto;
+import com.itwill.spring02.dto.PostSearchDto;
 import com.itwill.spring02.dto.PostUpdateDto;
 import com.itwill.spring02.repository.Post;
 import com.itwill.spring02.repository.PostDao;
@@ -67,5 +68,11 @@ public class PostService {
 		int result = postDao.deletePost(id);
 		
 		return result;
+	}
+	
+	public List<PostListDto> searchPost(PostSearchDto dto) {
+		log.debug("searchPost()");
+		List<PostListDto> list = postDao.searchPost(dto);
+		return list;
 	}
 }

@@ -26,7 +26,7 @@
     </delete>
     
     <!-- 검색 -->
-    <select id="search" resultType="Post">
+    <select id="searchPost" resultType="Post">
         <!--  -->
         <bind name="searchKeyword" value="'%' + keyword + '%'"/>
         select * from posts
@@ -36,7 +36,7 @@
                     upper(title) like upper(#{searchKeyword})
                 </when>
                 <when test='category.equals("c")'>
-                    upper(content) like upper(#{searchKeyword)
+                    upper(content) like upper(#{searchKeyword})
                 </when>
                 <when test='category.equals("tc")'>
                     upper(title) like upper(#{searchKeyword})

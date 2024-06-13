@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwill.spring02.dto.PostCreateDto;
 import com.itwill.spring02.dto.PostListDto;
+import com.itwill.spring02.dto.PostSearchDto;
 import com.itwill.spring02.dto.PostUpdateDto;
 import com.itwill.spring02.repository.Post;
 import com.itwill.spring02.service.PostService;
@@ -64,16 +65,20 @@ public class PostController {
 		postService.deletePost(id);
 		return "redirect:/post/list";
 	}
-	
+
 	@PostMapping("/update")
 	public String update(PostUpdateDto post) {
 		log.debug("POST: update(dto={})", post);
 		postService.updatePost(post);
 		return "redirect:/post/detail?id=" + post.getId();
 	}
-	
-//	@PostMapping("/search")
-//	public String search(@RequestParam(name="category") String category, @RequestParam(name="searchText") String searchText) {
-//		
-//	}
+
+	@GetMapping("/search")
+	public String search(PostSearchDto dto, Model model) {
+		log.debug("search(dto={})", dto);
+		List<PostListDto> list = postService.searchPost(dto);
+
+		model.addAttribute("posts", list);
+		return "post/list";
+	}
 }
