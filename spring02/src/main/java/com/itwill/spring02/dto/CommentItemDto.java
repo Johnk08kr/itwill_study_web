@@ -18,10 +18,10 @@ public class CommentItemDto {
 	private Integer id;
 	private String cText;
 	private String userName;
-	private LocalDateTime modifiedTime;
+	private Timestamp modifiedTime;
 
 	public static CommentItemDto fromEntity(Comment comment) {
 		return CommentItemDto.builder().id(comment.getId()).cText(comment.getCText()).userName(comment.getUserName())
-				.modifiedTime(comment.getModifiedTime()).build();
+				.modifiedTime(Timestamp.valueOf(comment.getModifiedTime())).build();
 	}
 }
