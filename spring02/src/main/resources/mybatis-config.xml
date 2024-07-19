@@ -13,5 +13,6 @@
     <typeAliases>
         <typeAlias type="com.itwill.spring02.repository.Post" alias="Post"/>
         <typeAlias type="com.itwill.spring02.repository.Comment" alias="Comment"/>
+        <typeAlias type="com.itwill.spring02.repository.User" alias="User"/>
     </typeAliases>
 </configuration>
