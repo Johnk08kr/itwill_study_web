@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.itwill.springboot1.dto.Author;
 import com.itwill.springboot1.dto.Book;
@@ -48,11 +49,33 @@ public class HomeController {
 			list.add(book);
 		}
 
-		Book b = Book.builder().id(10).title("종의 기원").build(); // author = null
+		Book b = Book.builder().id(10).title("종의기원").build(); // author = null
 		list.add(b);
 
 		// 도서 목록을 뷰에 전달
 		model.addAttribute("bookList", list);
 	}
 	
+	 @GetMapping("/book/details")
+	 public void bookDetails(@RequestParam(name = "id") int id, @RequestParam(name = "title") String title, Model model) {
+	 	// 요청 파라미터 id 값을 찾고, 해당 id를 갖는 Book 객체 생성
+		log.info("bookDetails(id={}", id);
+		log.info("bookDetails(title={}", title);
+	 	
+		// 모델에 Book 객체를 속성(attr) 저장. 뷰로 전달.
+		Book book = Book.builder().id(id).title(title).author(Author.builder().firstName("찰스").lastName("다윈").build()).build();
+
+		model.addAttribute("book", book);
+	 }
+
+	 @GetMapping("/book/details/{id}/{title}")
+	 public String bookDetails2(@PathVariable("id") int id, @PathVariable("title") String title, Model model) {
+			log.info("id={}", id);
+			log.info("title={}", title);
+			Book book = Book.builder().id(id).title(title).author(Author.builder().firstName("찰스").lastName("다윈").build()).build();
+			model.addAttribute("book", book);
+			
+			return "/book/details";
+	 }
+	 
 }
