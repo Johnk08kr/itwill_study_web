@@ -12,7 +12,7 @@
 </head>
 <body>
   <header>
-    <div th:replace="~{/layout/fragments :: pageHeader('직원 목록')}"></div>
+    <div th:replace="~{/layout/fragments :: pageHeader('부서 목록')}"></div>
     <div th:replace="~{/layout/fragments :: navigation}"></div>
   </header>
   <table class="table table-striped table-hover">
@@ -20,28 +20,17 @@
       <tr>
         <th>NO</th>
         <th>NAME</th>
-        <th>JOB</th>
-        <th>MANAGER</th>
-        <th>DEPT</th>
+        <th>LOCATION</th>
       </tr>
     </thead>
     <tbody>
-      <tr th:each="emp : ${empList}" th:object="${emp}">
+      <tr th:each="dept : ${deptList}" th:object="${dept}">
         <td th:text="*{id}"></td>
 
-        <td><a th:href="@{/employee/details/} + *{id}"
-          th:text="*{ename}"></a></td>
+        <td><a th:href="@{/department/details/} + *{id}"
+          th:text="*{dname}"></a></td>
 
-        <td th:text="*{job}"></td>
-
-        <td><th:block th:if="*{manager != null}">
-            <a th:href="@{/employee/details/} + *{manager.id}"
-              th:text="*{manager.ename}"></a>
-          </th:block> <th:block th:if="*{manager == null}">
-          담당 매니저 없음</th:block></td>
-
-        <td><a th:href="@{/department/details/} + *{department.id}"
-          th:text="*{department.dname}"></a></td>
+        <td th:text="*{location}"></td>
     </tbody>
   </table>
   <script

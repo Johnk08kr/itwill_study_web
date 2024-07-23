@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spring Boot2</title>
+</head>
+<body>
+  <div th:replace="~{/layout/fragments :: pageHeader('HOME')}"></div>
+  <div th:replace="~{/layout/fragments :: navigation}"></div>
+  <h1>두번째 Spring Boot 프로젝트</h1>
+  <h2 th:text="${currentTime}">현재 시간</h2>
+</body>
+</html>
