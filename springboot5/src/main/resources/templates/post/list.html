@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{/layout/fragments::documentHeader}"></th:block>
+    <style>
+        /* Custom styles for the table */
+        .custom-table thead {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        .custom-table tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+        .custom-table th, .custom-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        /* Custom styles for the card */
+        .custom-card {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .custom-card-header {
+            background-color: #198754;
+            color: #ffffff;
+            padding: 1rem;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            margin: -2rem -2rem 2rem -2rem;
+        }
+    </style>
+</head>
+<body>
+    <th:block th:replace="~{/layout/fragments::pageHeader('POST LIST')}"></th:block>
+    <main>
+        <div class="container mt-4">
+            <div class="custom-card">
+                <div class="custom-card-header">
+                    <h2>Post List</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover custom-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">TITLE</th>
+                                <th scope="col">AUTHOR</th>
+                                <th scope="col">MODIFIED</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="post : ${posts}" th:object="${post}">
+                                <td th:text="*{id}"></td>
+                                <td th:text="*{title}"></td>
+                                <td th:text="*{author}"></td>
+                                <td th:text="*{#temporals.format(modifiedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <th:block th:replace="~{/layout/fragments::bootstrapJS}"></th:block>
+</body>
+</html>
