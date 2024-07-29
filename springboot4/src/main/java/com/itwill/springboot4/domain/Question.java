@@ -15,8 +15,8 @@ import lombok.Data;
 public class Question {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "QID") //-> Oracle: generated as identity, MySQL: autoincrement
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //-> Oracle: generated as identity, MySQL: autoincrement
+	@Column(name = "QID") 
 	private Long id;
 	
 	@Basic(optional = false) // Not Null
