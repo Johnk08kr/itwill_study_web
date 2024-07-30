@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class PostCreateItemDto {
-
+public class PostUpdateItemDto {
+	
+	private Long id;
+	
 	private String title;
 
-	private String author;
-
 	private String content;
-
+	
 	public Post toEntity() {
-		return Post.builder().title(title).content(content).author(author).build();
+		return Post.builder().id(id).title(title).content(content).build();
 	}
 }

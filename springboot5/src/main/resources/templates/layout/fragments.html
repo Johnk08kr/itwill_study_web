@@ -13,8 +13,9 @@
 </th:block>
 </head>
 <body>
+  <!-- PageHeader -->
   <th:block th:fragment="pageHeader(title)">
-    <!-- Header -->
+    <!-- Title -->
     <header class="p-4 text-bg-success text-center">
       <h1 th:text="${title}"></h1>
     </header>
@@ -33,11 +34,40 @@
             <li class="nav-item"><a class="nav-link"
               th:href="@{/post/list}">POST</a></li>
             <li class="nav-item"><a class="nav-link"
-              th:href="@{/post/newPost}">NEW POST</a></li>
+              th:href="@{/post/create}">NEW POST</a></li>
             <li class="nav-item"><a class="nav-link disabled">TODO</a></li>
           </ul>
         </div>
       </div>
+    </nav>
+  </th:block>
+
+  <!-- paging -->
+  <th:block th:fragment="pagination">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination" style="justify-content: center">
+
+        <!-- previous -->
+        <li class="page-item"
+          th:classappend="${!page.hasPrevious} ? 'disabled'"><a
+          class="page-link" th:href="@{|?p=${page.number - 1}|}"> <span>&laquo;</span>
+        </a></li>
+
+        <!-- pageNo -->
+        <li class="page-item"
+          th:each="pageNo:${#numbers.sequence(0, page.totalPages - 1)}"
+          th:if="${pageNo >= page.number - 5 && pageNo < page.number + 5}"
+          th:classappend="${pageNo == page.number} ? 'active'"><a
+          class="page-link" th:href="@{|?p=${pageNo}|}"
+          th:text="${pageNo + 1}"></a></li>
+
+        <!-- next -->
+        <li class="page-item"
+          th:classappend="${!page.hasNext} ? 'disabled'"><a
+          class="page-link" th:href="@{|?p=${page.number + 1}|}"> <span>&raquo;</span>
+        </a></li>
+
+      </ul>
     </nav>
   </th:block>
 

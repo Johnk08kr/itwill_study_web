@@ -6,5 +6,6 @@ import com.itwill.springboot5.domain.Post;
 
 // CRUD + Paging/Sorting
 public interface PostRepository extends JpaRepository<Post, Long>{
-
+	
+	
 }

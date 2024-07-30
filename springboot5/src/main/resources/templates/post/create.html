@@ -26,13 +26,13 @@
     </style>
 </head>
 <body>
-    <th:block th:replace="~{/layout/fragments::pageHeader('Create Post')}"></th:block>
+    <th:block th:replace="~{/layout/fragments::pageHeader('CREATE POST')}"></th:block>
     <div class="container mt-4">
         <div class="custom-form-container">
             <div class="custom-form-header">
                 <h2>Create New Post</h2>
             </div>
-            <form th:action="@{/create}" method="post">
+            <form th:action="@{/post/create}" method="post">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" class="form-control" id="title" name="title" required>
@@ -46,7 +46,7 @@
                     <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
                 </div>
                 <div class="custom-form-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                     <button type="reset" class="btn btn-secondary">Reset</button>
                 </div>
             </form>
