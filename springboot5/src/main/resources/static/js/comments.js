@@ -135,9 +135,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-        function deleteComment(id) {
-            console.log("deleteComment" + id);
-        }
+    function deleteComment(id) {
+        console.log("deleteComment" + id);
+    }
 
     // Date formatting
     function formatedDate(dateString) {
