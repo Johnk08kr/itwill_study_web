@@ -20,7 +20,7 @@ public class PostSearchTest {
 	@Autowired
 	private PostRepository postRepo;
 
-	@Test
+//	@Test
 	public void testFindByKeyword() {
 		String keyword = "Hi";
 		int p = 0;

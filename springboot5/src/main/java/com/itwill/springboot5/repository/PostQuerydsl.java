@@ -1,6 +1,13 @@
 package com.itwill.springboot5.repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.itwill.springboot5.domain.Post;
+import com.itwill.springboot5.dto.PostSearchRequestDto;
 
 /*
  * Querydsl 사용:
@@ -21,9 +28,31 @@ import com.itwill.springboot5.domain.Post;
  * 9. JpaRepositoy를 상속받는 인터페이스(PostRepository)에서 PostQuerydsl 인터페이스를 상속.
  */
 
-
-
-
 public interface PostQuerydsl {
+	// id가 일치 하는 엔터티 검색
 	Post searchById(Long id);
+	
+	// title에 포함된 문자열 대소문자 구분없이 검색
+	List<Post> searchByTitle(String keyword);
+	
+	// content에 포함된 문자열 대소문자 구분없이 검색
+	List<Post> searchByContent(String keyword);
+	
+	// title+content에 포함된 문자열 대소문자 구분없이 검색
+	List<Post> searchByTitleOrContent(String keyword);
+	
+	// modifiedTime 시간 검색
+	List<Post> searchByModifiedTime(LocalDateTime from, LocalDateTime to);
+	
+	// 작성자와 제목으로 검색: where author = ? and title like ?
+	List<Post> searchByAuthorAndTitle(String author, String title);
+	
+	// 제목/내용/제목+내용/작성자 검색
+	List<Post> searchByCategory(PostSearchRequestDto dto);
+	
+    // 제목 또는 내용에 검색어들 중 한 개라도 포함되어 있는 레코드들을 검색
+    List<Post> searchByKeywords(String[] keywords);
+    
+    // paging 
+    Page<Post> searchByKeywords(String[] keywords, Pageable pageable);
 }
