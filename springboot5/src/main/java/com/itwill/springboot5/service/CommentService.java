@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itwill.springboot5.domain.Comment;
 import com.itwill.springboot5.domain.Post;
 import com.itwill.springboot5.dto.CommentRegisterDto;
+import com.itwill.springboot5.dto.CommentUpdateDto;
 import com.itwill.springboot5.repository.CommentRepository;
 import com.itwill.springboot5.repository.PostRepository;
 
@@ -36,22 +37,41 @@ public class CommentService {
 
 		return entity;
 	}
-	
+
 	@Transactional(readOnly = true)
 	public Page<Comment> readCommentList(Long postId, int pageNo) {
 		log.info("readCommentList(postId={}, pageNo={})", postId, pageNo);
-		
+
 		// 댓글이 달려있는 포스트 엔터티 검색
 		Post post = postRepo.findById(postId).orElseThrow();
 
 		// 페이징 처리와 정렬을 하기 위한 Pageable 객체 생성
 		Pageable pageable = PageRequest.of(pageNo, 5, Sort.by("modifiedTime").descending());
-		
+
 		// DB에서 검색(select)
 //		Page<Comment> data = commentRepo.findByPostId(postId, pageable);
 		Page<Comment> data = commentRepo.findByPost(post, pageable);
 		log.info("data.number={}, data.totalPages={}", data.getNumber(), data.getTotalPages());
-		
+
 		return data;
+	}
+
+	public void delete(Long id) {
+		log.info("delete(commentId={})", id);
+
+		commentRepo.deleteById(id);
+	}
+	
+	@Transactional
+	// -> 엔터티를 findById등의 메소드로 검색한 후, 엔터티가 변경되면 자동으로 update 쿼리가 실행됨.
+	// -> JpaRepository<T, ID>.save(entity) 메소드를 명시적으로 호출할 필요가 없음.
+	public void update(CommentUpdateDto dto) {
+		log.info("update(dto={})", dto);
+		
+		// 아이디로 엔터티 검색
+		Comment entity = commentRepo.findById(dto.getId()).orElseThrow();
+		
+		// 검색된 엔터티의 필드를 업데이트
+		entity.update(dto.getCtext());
 	}
 }

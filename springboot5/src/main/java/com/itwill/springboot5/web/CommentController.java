@@ -2,7 +2,9 @@ package com.itwill.springboot5.web;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.itwill.springboot5.domain.Comment;
 import com.itwill.springboot5.dto.CommentRegisterDto;
+import com.itwill.springboot5.dto.CommentUpdateDto;
 import com.itwill.springboot5.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
@@ -39,9 +42,26 @@ public class CommentController {
 	public ResponseEntity<Page<Comment>> getCommentList(@PathVariable Long postId,
 			@RequestParam(name = "p", defaultValue = "0") int pageNo) {
 		log.info("getCommentList(postId={}, pageNo={})", postId, pageNo);
-		
-		Page<Comment> data = commentService.readCommentList(postId, pageNo);	
-		
+		Page<Comment> data = commentService.readCommentList(postId, pageNo);
+
 		return ResponseEntity.ok(data);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Long> deleteComment(@PathVariable Long id) {
+		log.info("deleteComment(id={})", id);
+
+		commentService.delete(id);
+
+		return ResponseEntity.ok(id); // 삭제한 댓글 아이디를 응답으로 보냄.
+	}
+
+	@PatchMapping("/{id}")
+	public ResponseEntity<Long> updateComment(@PathVariable Long id, @RequestBody CommentUpdateDto dto) {
+		log.info("updateComment(id={}, dto={})", id, dto);
+		
+		commentService.update(dto);
+		
+		return ResponseEntity.ok(id); // 업데이트한 댓글의 아이디를 응답으로 보냄.
 	}
 }
