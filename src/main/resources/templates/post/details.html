@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<th:block th:replace="~{/layout/fragments::documentHeader}"></th:block>
+<style>
+/* Custom styles for the table */
+.custom-table thead {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f2f2f2;
+}
+
+.custom-table th, .custom-table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Custom styles for the card */
+.custom-card {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-card-header {
+  background-color: #198754;
+  color: #ffffff;
+  padding: 1rem;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  margin: -2rem -2rem 2rem -2rem;
+}
+/* Custom styles for the comments */
+.custom-comment-card {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.custom-comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.custom-comment-header span {
+  font-weight: bold;
+}
+
+.custom-comment-header .text-secondary {
+  font-size: 0.875rem;
+}
+
+.custom-comment-body {
+  margin-bottom: 1rem;
+}
+
+.custom-comment-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+</style>
+</head>
+<body>
+  <th:block
+    th:replace="~{/layout/fragments::pageHeader('POST DETAILS')}"></th:block>
+  <main>
+    <div class="container mt-4">
+      <div class="custom-card">
+        <div class="custom-card-header">
+          <h2>Post Details</h2>
+        </div>
+        <div class="card-body">
+          <table class="table custom-table">
+            <tbody>
+              <th:block th:object="${post}">
+                <input type="hidden" id="id" th:value="*{id}" />
+                <tr>
+                  <th scope="row">ID</th>
+                  <td th:text="*{id}"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Title</th>
+                  <td th:text="*{title}"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Author</th>
+                  <td th:text="*{author}"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Content</th>
+                  <td th:text="*{content}"></td>
+                </tr>
+                <tr>
+                  <th scope="row">Modified</th>
+                  <td
+                    th:text="*{#temporals.format(modifiedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                </tr>
+              </th:block>
+            </tbody>
+          </table>
+          <div class="mt-4 text-center">
+            <a class="btn btn-success"
+              th:href="@{/post/update/{id}(id=*{id})}">Update</a> <a
+              class="btn btn-secondary" th:href="@{/post/list}">Back
+              to List</a> <a class="btn btn-danger" id="deleteBtn">Delete</a>
+          </div>
+          <!-- 댓글 작성/목록 Collapse -->
+          <div class="mt-4 card">
+            <div class="card-header">
+              <button class="btn btn-outline-success" id="btnToggle"
+                data-toggle="collapse">Show Comment</button>
+            </div>
+            <div class="card-body collapse" id="collapseComments">
+              <!-- 댓글 작성 -->
+              <div class="row">
+                <div class="col-10">
+                  <textarea class="form-control" id="commentText"
+                    rows="3" placeholder="comment....."></textarea>
+                  <!-- TODO: 로그인 사용자 이름으로 설정 -->
+                  <input class="d-none" id="commentWriter" value="admin"
+                    readonly />
+                </div>
+                <div class="col-2" style="align-content: center">
+                  <button
+                    class="btn btn-outline-success form-control h-100"
+                    id="btnRegisterComment">Register</button>
+                </div>
+              </div>
+              <!-- 댓글 목록 -->
+              <div class="mt-2" id="sectionComments"></div>
+              <!-- 댓글 목록 페이징 처리를 위한 버튼: [더보기 버튼] -->
+              <div style="text-align: -webkit-center">
+                <button class="btn btn-success" id="btnMoreComment">See
+                  More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <!-- BootStrap 자바스크립트 -->
+  <th:block th:replace="~{/layout/fragments::bootstrapJS}"></th:block>
+  <!-- Ajax를 사용하기 위한 Axios 자바스크립트 라이브러리 -->
+  <th:block th:replace="~{/layout/fragments::axiosJS}"></th:block>
+
+  <!-- 댓글 기능을 위한 자바스크립트 -->
+  <script th:src="@{/js/comments.js}"></script>
+  <script>
+      const $deleteBtn = document.querySelector("#deleteBtn");
+
+      $deleteBtn.addEventListener("click", () => {
+        const check = confirm("진짜?");
+        if (check) {
+          const postId = document.querySelector("#id").value;
+          location.href = `/post/delete/${postId}`;
+        }
+      });
+    </script>
+</body>
+</html>

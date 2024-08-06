@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<th:block th:replace="~{/layout/fragments::documentHeader}"></th:block>
+<style>
+/* Custom styles for the form */
+.custom-form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-form-header {
+  background-color: #198754;
+  color: #ffffff;
+  padding: 1rem;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  margin: -2rem -2rem 2rem -2rem;
+}
+
+.custom-form-footer {
+  text-align: right;
+}
+</style>
+</head>
+<body>
+  <th:block th:replace="~{/layout/fragments::pageHeader('UPDATE POST')}"></th:block>
+  <div class="container mt-4">
+    <div class="custom-form-container">
+      <div class="custom-form-header">
+        <h2>Update Post</h2>
+      </div>
+      <form th:action="@{/post/update}" method="post"
+        th:object="${post}" id="updateForm">
+        <div class="mb-3 d-none">
+          <label class="form-label" for="id">번호</label> <input
+            type="text" class="form-control" id="id" th:value="*{id}"
+            name="id" readonly />
+        </div>
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label> <input
+            type="text" class="form-control" id="title" name="title"
+            required th:value="*{title}">
+        </div>
+        <div class="mb-3">
+          <label for="content" class="form-label">Content</label>
+          <textarea class="form-control" id="content" name="content"
+            rows="5" required th:text="*{content}"></textarea>
+        </div>
+        <div class="custom-form-footer">
+          <button type="submit" class="btn btn-success updateBtn"
+            id="updateBtn">Update</button>
+          <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <th:block th:replace="~{/layout/fragments::bootstrapJS}"></th:block>
+  <script>
+    const $updateBtn = document.querySelector("#updateBtn");
+
+    // 업데이트 버튼을 찾고, 클릭 이벤트 리스너를 설정.
+    $updateBtn.addEventListener('click', () => {
+        const title = document.querySelector('input#title').value.trim();
+        const content = document.querySelector('textarea#content').value.trim();
+        // trim(): 문자열 시작과 끝에 있는 모든 공백을 제거. "  abc def  ".trim() -> "abc def"
+        
+        if (title === '' || content === '') {
+            alert('제목과 내용은 반드시 입력해야 합니다!');
+            return;
+        }
+        
+        const check = confirm('변경된 내용을 저장할까요?');
+        if (check) {
+            const updateForm = document.querySelector('#updateForm');
+            updateForm.submit();
+        }
+    });
+    </script>
+</body>
+</html>
