@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{/layout/fragments::documentHeader}"/>
+    <style>
+        .custom-form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .custom-form-header {
+            background-color: #198754;
+            color: #ffffff;
+            padding: 1rem;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            margin: -2rem -2rem 2rem -2rem;
+        }
+        .custom-form-footer {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="~{/layout/fragments::pageHeader('LOGIN')}"/>
+
+<div class="container mt-4">
+    <div class="custom-form-container">
+        <div class="custom-form-header">
+            <h2>Login</h2>
+        </div>
+        <form method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required autofocus>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class ="text-danger mt-0" th:if="${param.error}">
+                아이디와 비밀번호를 확인하세요 제발~.
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me">
+                <label class="form-check-label" for="rememberMe">Remember me</label>
+            </div>
+            <div class="custom-form-footer">
+                <button type="submit" class="btn btn-success w-100">Login</button>
+            </div>
+        </form>
+        <div class="mt-3 text-center">
+            <a href="#" class="text-decoration-none">Forgot password?</a>
+        </div>
+        <hr>
+        <div class="text-center">
+            <p>Don't have an account? <a href="#" class="text-decoration-none">Sign up</a></p>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{/layout/fragments::bootstrapJS}"/>
+</body>
+</html>
