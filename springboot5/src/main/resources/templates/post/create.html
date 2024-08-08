@@ -12,6 +12,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         .custom-form-header {
             background-color: #198754;
             color: #ffffff;
@@ -20,38 +21,40 @@
             text-align: center;
             margin: -2rem -2rem 2rem -2rem;
         }
+
         .custom-form-footer {
             text-align: right;
         }
     </style>
 </head>
 <body>
-    <th:block th:replace="~{/layout/fragments::pageHeader('CREATE POST')}"></th:block>
-    <div class="container mt-4">
-        <div class="custom-form-container">
-            <div class="custom-form-header">
-                <h2>Create New Post</h2>
-            </div>
-            <form th:action="@{/post/create}" method="post">
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="title" name="title" required>
-                </div>
-                <div class="mb-3">
-                    <label for="author" class="form-label">Author</label>
-                    <input type="text" class="form-control" id="author" name="author" required>
-                </div>
-                <div class="mb-3">
-                    <label for="content" class="form-label">Content</label>
-                    <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
-                </div>
-                <div class="custom-form-footer">
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <button type="reset" class="btn btn-secondary">Reset</button>
-                </div>
-            </form>
+<th:block th:replace="~{/layout/fragments::pageHeader('CREATE POST')}"></th:block>
+<div class="container mt-4">
+    <div class="custom-form-container">
+        <div class="custom-form-header">
+            <h2>Create New Post</h2>
         </div>
+        <form th:action="@{/post/create}" method="post">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="author" class="form-label">Author</label>
+                <input type="text" class="form-control" id="author" name="author" th:value="${#authentication.name}"
+                       readonly>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Content</label>
+                <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+            </div>
+            <div class="custom-form-footer">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </form>
     </div>
-    <th:block th:replace="~{/layout/fragments::bootstrapJS}"></th:block>
+</div>
+<th:block th:replace="~{/layout/fragments::bootstrapJS}"></th:block>
 </body>
 </html>

@@ -50,8 +50,8 @@
                     <!-- 로그인 상태 -->
                     <th:block sec:authorize="isAuthenticated()">
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/member/logout}">
-                                <span class="text-secondary" sec:authentication="name"/>
+                            <a class="nav-link" th:href="@{/logout}">
+                                <span class="text-secondary" id="loginUser" sec:authentication="name"/>
                                 <span class="mx-1 text-primary">Logout</span>
                             </a>
                         </li>

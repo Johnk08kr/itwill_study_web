@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -37,7 +38,11 @@ public class MemberRepositoryTest {
     public void testSave() {
         // 엔터티 객체를 DB members 테이블에 저장.
 
-        Member member1 = Member.builder().username("test3").password(pwEncoder.encode("0410")).email("test3@gmail.com").build();
+        Member member1 = Member.builder()
+                .username("test3")
+                .password(pwEncoder.encode("0410"))
+                .email("test3@gmail.com")
+                .build();
 
         member1.addRole(MemberRole.ADMIN);
         log.info("save 호출 전 = {}, {}", member1, member1.getRoles());
@@ -46,11 +51,20 @@ public class MemberRepositoryTest {
         log.info("save 호출 후 = {}, {}", member1, member1.getRoles());
     }
 
-    @Test
+    //    @Test
     @Transactional
     public void testFindAll() {
         List<Member> members = memberRepo.findAll();
         assertThat(members).isNotNull();
         members.forEach(member -> log.info("{}, {}", member, member.getRoles()));
+    }
+
+    @Test
+    public void testFindByUsername() {
+        Member member1 = memberRepo.findByUsername("test1").get();
+        log.info("{}, {}", member1, member1.getRoles());
+
+        Member member2 = memberRepo.findByUsername("test2").get();
+        log.info("{}, {}", member2, member2.getRoles());
     }
 }

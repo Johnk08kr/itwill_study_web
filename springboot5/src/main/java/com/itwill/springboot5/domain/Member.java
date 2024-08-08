@@ -3,9 +3,11 @@ package com.itwill.springboot5.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -17,7 +19,7 @@ import java.util.Set;
 // callSuper 속성: superclass의 equals(), hashCode() 메소드를 사용할 것인지 여부
 @Entity
 @Table(name = "MEMBERS")
-public class Member extends BaseTimeEntity {
+public class Member extends BaseTimeEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +41,7 @@ public class Member extends BaseTimeEntity {
     @ToString.Exclude // toString() 메소드에서 제외.
     @ElementCollection(fetch = FetchType.LAZY) // 연관 테이블(member_roles)사용.
     @Enumerated(EnumType.STRING) // DB 테이블에 저장될 때 상수(enum) 이름(문자열)을 사용
-    private Set<MemberRole> roles = new HashSet<>();
+    private Set<MemberRole> roles = new HashSet<>(); // member 와 memberRole은 Many-to-Many
 
     public Member addRole(MemberRole role) {
         roles.add(role);
@@ -54,5 +56,20 @@ public class Member extends BaseTimeEntity {
     public Member clearRoles() {
         roles.clear(); // set<>의 모든 원소를 지움
         return this;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+//        for (MemberRole role : roles) {
+//            GrantedAuthority auth = new SimpleGrantedAuthority(role.getAuthority());
+//            authorities.add(auth);
+//        }
+
+        List<SimpleGrantedAuthority> authorities = roles.stream()
+                .map((r) -> new SimpleGrantedAuthority(r.getAuthority()))
+                .toList();
+
+        return authorities;
     }
 }
