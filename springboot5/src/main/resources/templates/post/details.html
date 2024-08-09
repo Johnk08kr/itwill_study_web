@@ -76,15 +76,16 @@
 <th:block
         th:replace="~{/layout/fragments::pageHeader('POST DETAILS')}"></th:block>
 <main>
-    <div class="container mt-4">
-        <div class="custom-card">
-            <div class="custom-card-header">
-                <h2>Post Details</h2>
-            </div>
-            <div class="card-body">
-                <table class="table custom-table">
-                    <tbody>
-                    <th:block th:object="${post}">
+    <th:block th:object="${post}">
+        <div class="container mt-4">
+            <div class="custom-card">
+                <div class="custom-card-header">
+                    <h2>Post Details</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table custom-table">
+                        <tbody>
+
                         <input type="hidden" id="id" th:value="*{id}"/>
                         <tr>
                             <th scope="row">ID</th>
@@ -107,52 +108,54 @@
                             <td
                                     th:text="*{#temporals.format(modifiedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                         </tr>
-                    </th:block>
-                    </tbody>
-                </table>
-                <div class="mt-4 text-center">
-                    <a class="btn btn-success"
-                       th:href="@{/post/update/{id}(id=*{id})}">Update</a> <a
-                        class="btn btn-secondary" th:href="@{/post/list}">Back
-                    to List</a> <a class="btn btn-danger" id="deleteBtn">Delete</a>
-                </div>
-                <!-- 댓글 작성/목록 Collapse -->
-                <div class="mt-4 card">
-                    <div class="card-header">
-                        <button class="btn btn-outline-success" id="btnToggle"
-                                data-toggle="collapse">Show Comment
-                        </button>
+
+                        </tbody>
+                    </table>
+                    <div class="mt-4 text-center">
+                        <a class="btn btn-success" th:if="*{author eq #authentication.name}"
+                        >Update</a> <a
+                            class="btn btn-secondary" th:href="@{/post/list}">Back
+                        to List</a> <a class="btn btn-danger" th:if="*{author eq #authentication.name}"
+                                       id="deleteBtn">Delete</a>
                     </div>
-                    <div class="card-body collapse" id="collapseComments">
-                        <!-- 댓글 작성 -->
-                        <div class="row">
-                            <div class="col-10">
+                    <!-- 댓글 작성/목록 Collapse -->
+                    <div class="mt-4 card">
+                        <div class="card-header">
+                            <button class="btn btn-outline-success" id="btnToggle"
+                                    data-toggle="collapse">Show Comment
+                            </button>
+                        </div>
+                        <div class="card-body collapse" id="collapseComments">
+                            <!-- 댓글 작성 -->
+                            <div class="row">
+                                <div class="col-10">
                   <textarea class="form-control" id="commentText"
                             rows="3" placeholder="comment....."></textarea>
-                                <!-- TODO: 로그인 사용자 이름으로 설정 -->
-                                <input class="d-none" id="commentWriter" th:value="${#authentication.name}"
-                                       readonly/>
+                                    <!-- 로그인 사용자 이름으로 설정 -->
+                                    <input class="d-none" id="commentWriter" th:value="${#authentication.name}"
+                                           readonly/>
+                                </div>
+                                <div class="col-2" style="align-content: center">
+                                    <button
+                                            class="btn btn-outline-success form-control h-100"
+                                            id="btnRegisterComment">Register
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-2" style="align-content: center">
-                                <button
-                                        class="btn btn-outline-success form-control h-100"
-                                        id="btnRegisterComment">Register
+                            <!-- 댓글 목록 -->
+                            <div class="mt-2" id="sectionComments"></div>
+                            <!-- 댓글 목록 페이징 처리를 위한 버튼: [더보기 버튼] -->
+                            <div style="text-align: -webkit-center">
+                                <button class="btn btn-success" id="btnMoreComment">See
+                                    More
                                 </button>
                             </div>
-                        </div>
-                        <!-- 댓글 목록 -->
-                        <div class="mt-2" id="sectionComments"></div>
-                        <!-- 댓글 목록 페이징 처리를 위한 버튼: [더보기 버튼] -->
-                        <div style="text-align: -webkit-center">
-                            <button class="btn btn-success" id="btnMoreComment">See
-                                More
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </th:block>
 </main>
 
 
@@ -164,15 +167,7 @@
 <!-- 댓글 기능을 위한 자바스크립트 -->
 <script th:src="@{/js/comments.js}"></script>
 <script>
-    const $deleteBtn = document.querySelector("#deleteBtn");
 
-    $deleteBtn.addEventListener("click", () => {
-        const check = confirm("진짜?");
-        if (check) {
-            const postId = document.querySelector("#id").value;
-            location.href = `/post/delete/${postId}`;
-        }
-    });
 </script>
 </body>
 </html>
